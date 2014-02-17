@@ -22,8 +22,7 @@ public class RuleEngineImplTest {
 
 		IContextDataServiceWarpper mockDataService = mock(IContextDataServiceWarpper.class);
 
-		when(mockDataService.fetchData(anyMap(), anyString())).thenReturn(
-				"test");
+		when(mockDataService.fetchData(anyMap(), anyString())).thenReturn(111);
 
 		engince.setDataService(mockDataService);
 
@@ -37,17 +36,24 @@ public class RuleEngineImplTest {
 		rule.setPath("rule/com/ebao/test/Test.groovy");
 
 		Map<String, Object> context = new HashMap<String, Object>();
+
 		long time = System.currentTimeMillis();
 
-		engince.run(rule, context);
+		try{
+			Object result = engince.run(rule, context);
+			System.out.println(result);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 
 		System.out.println("first " + (System.currentTimeMillis() - time));
 
-		long time2 = System.currentTimeMillis();
-
-		engince.run(rule, context);
-
-		System.out.println("time 2 " + (System.currentTimeMillis() - time2));
+		// long time2 = System.currentTimeMillis();
+		//
+		// engince.run(rule, context);
+		//
+		// System.out.println("time 2 " + (System.currentTimeMillis() - time2));
 
 	}
 }

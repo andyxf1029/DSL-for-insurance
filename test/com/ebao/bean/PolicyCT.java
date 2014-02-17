@@ -12,14 +12,5 @@ public class PolicyCT {
 		this.code = code;
 	}
 
-	public Long getLimit() {
-		return limit;
-	}
-
-	public void setLimit(Long limit) {
-		this.limit = limit;
-	}
-
-	private Long limit;
 
 }

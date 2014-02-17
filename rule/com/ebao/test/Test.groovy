@@ -1,8 +1,5 @@
-if(Goto=="test"){
-	update("test","gg");
+
+if(Goto==111){
+	warn("c");
 }
-
-
-
-
 
