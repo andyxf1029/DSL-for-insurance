@@ -29,6 +29,8 @@ public class BaseScriptLoader implements IBaseScriptloader {
 		ClassLoader parent = getClass().getClassLoader();
 		GroovyClassLoader loader = new GroovyClassLoader(parent);
 		Class groovyClass = loader.parseClass(new File(rulePath));
+		
+		System.out.println(groovyClass.getSimpleName());
 		return (GroovyObject) groovyClass.newInstance();
 	}
 

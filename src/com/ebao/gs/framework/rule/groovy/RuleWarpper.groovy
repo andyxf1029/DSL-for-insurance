@@ -5,7 +5,7 @@ import com.ebao.gs.framework.rule.service.context.IContextDataServiceWarpper
 def run(closure,context){
 	def ruleWarpper = new RuleMethodWarpper();
 	ruleWarpper.mergeMethods(closure,context,dataService);
-	closure.run();
+	closure.run()
 }
 
 
@@ -17,11 +17,10 @@ class RuleMethodWarpper {
 
 	def mergeMethods(closure,context,dataService){
 		this.dataService= dataService
-		
-		closure.metaClass.propertyMissing = {String name ->
+
+		closure.metaClass.propertyMissing = {String name  ->
 			dataService.fetchData(context,name);
 		}
-
 		closure.metaClass.update = {String name ,value ->
 			dataService.updateValue(context,name,value);
 		}
@@ -34,7 +33,7 @@ class RuleMethodWarpper {
 			ruleWarpper.mergeMethods(ct, context,dataService)
 			return ct;
 		}
-		
+
 		closure.metaClass.coverageArray = {String name ->
 			List<PolicyCT> ctList = new ArrayList<PolicyCT> ()
 			PolicyCT ct = new PolicyCT();
@@ -44,23 +43,21 @@ class RuleMethodWarpper {
 			ruleWarpper.mergeMethods(ct, context,dataService)
 			return ctList;
 		}
-		
+
 		closure.metaClass.sum = {List lists ->
-			
-			
+
+
 			return lists;
 		}
-		
-		
+
+
 		closure.metaClass.stop = {String code ->
 			throw new Exception(code);
 		}
-		
-		closure.metaClass.warn = {String code ->
-			return code
-		}
-		
-		
+
+		closure.metaClass.warn = {String code -> return code }
+
+
 		//TODO
 
 		return closure;

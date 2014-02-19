@@ -1,5 +1,1 @@
-
-if(Goto==111){
-	warn("c");
-}
-
+value("tesr")

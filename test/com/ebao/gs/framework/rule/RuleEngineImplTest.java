@@ -1,7 +1,10 @@
 package com.ebao.gs.framework.rule;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.anyMap;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import groovy.lang.GroovyShell;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +31,7 @@ public class RuleEngineImplTest {
 
 		BaseScriptLoader loader = new BaseScriptLoader();
 
-		loader.setBaseScriptPath("src/com/ebao/gs/framework/rule/groovy/RuleWarpper.groovy");
+		loader.setBaseScriptPath("src/com/ebao/gs/framework/rule/groovy/CategoryTest.groovy");
 
 		engince.setScriptLoader(loader);
 		Rule rule = new Rule();
@@ -37,15 +40,18 @@ public class RuleEngineImplTest {
 
 		Map<String, Object> context = new HashMap<String, Object>();
 
+		System.out.println(new GroovyShell()
+				.evaluate("def foo = { println 'foo' }").getClass()
+				.getSimpleName());
+
 		long time = System.currentTimeMillis();
 
-		try{
+		try {
 			Object result = engince.run(rule, context);
 			System.out.println(result);
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 
 		System.out.println("first " + (System.currentTimeMillis() - time));
 

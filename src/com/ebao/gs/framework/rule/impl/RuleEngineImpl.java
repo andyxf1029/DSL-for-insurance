@@ -9,6 +9,7 @@ import com.ebao.gs.framework.rule.IBaseScriptloader;
 import com.ebao.gs.framework.rule.RuleEngine;
 import com.ebao.gs.framework.rule.bean.Rule;
 import com.ebao.gs.framework.rule.bean.RuleResult;
+import com.ebao.gs.framework.rule.groovy.DSLRunner;
 import com.ebao.gs.framework.rule.service.adapter.IServiceAdapter;
 import com.ebao.gs.framework.rule.service.context.IContextDataServiceWarpper;
 
@@ -41,7 +42,6 @@ public class RuleEngineImpl implements RuleEngine {
 	public RuleResult run(Rule rule, Map<String, Object> context)
 			throws Exception {
 		// TODO cache base script
-		
 		
 		GroovyObject baseScript;
 		if (cache.get("baseScript") != null) {
