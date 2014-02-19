@@ -19,16 +19,16 @@ public class RuleEngineImpl implements RuleEngine {
 
 	private static final String DATA_SERVICE = "dataService";
 
-	private IBaseScriptloader scriptLoader;
-
 	private IServiceAdapter adapter;
 
 	private IContextDataServiceWarpper dataService;
 
 	private static Map<String, GroovyObject> cache = new HashMap<String, GroovyObject>();
 
-	public void setScriptLoader(IBaseScriptloader scriptLoader) {
-		this.scriptLoader = scriptLoader;
+	private DSLRunner runner;
+
+	public void setRunner(DSLRunner runner) {
+		this.runner = runner;
 	}
 
 	public void setAdapter(IServiceAdapter adapter) {
@@ -42,32 +42,34 @@ public class RuleEngineImpl implements RuleEngine {
 	public RuleResult run(Rule rule, Map<String, Object> context)
 			throws Exception {
 		// TODO cache base script
-		
-		GroovyObject baseScript;
-		if (cache.get("baseScript") != null) {
-			baseScript = cache.get("baseScript");
-		} else {
-			baseScript = scriptLoader.loadBaseScript();
-			cache.put("baseScript", baseScript);
-		}
 
-		baseScript.setProperty(DATA_SERVICE, dataService);
+		runner.runDSL(rule.getPath());
 
-		
-		// TODO cache rule
-		GroovyObject ruleScript;
-		if (cache.get("ruleScript") != null) {
-			ruleScript = cache.get("ruleScript");
-		} else {
-			ruleScript = scriptLoader.loadScript(rule.getPath());
-			cache.put("ruleScript", baseScript);
-		}
-		ruleScript.setProperty(EXTER_SERVICE, adapter);
-		
-		
-		Object[] args = { ruleScript, context };
-		baseScript.invokeMethod("run", args);
-		RuleResult result = new RuleResult();
-		return result;
+		// GroovyObject baseScript;
+		// if (cache.get("baseScript") != null) {
+		// baseScript = cache.get("baseScript");
+		// } else {
+		// baseScript = scriptLoader.loadBaseScript();
+		// cache.put("baseScript", baseScript);
+		// }
+		//
+		// baseScript.setProperty(DATA_SERVICE, dataService);
+		//
+		//
+		// // TODO cache rule
+		// GroovyObject ruleScript;
+		// if (cache.get("ruleScript") != null) {
+		// ruleScript = cache.get("ruleScript");
+		// } else {
+		// ruleScript = scriptLoader.loadScript(rule.getPath());
+		// cache.put("ruleScript", baseScript);
+		// }
+		// ruleScript.setProperty(EXTER_SERVICE, adapter);
+		//
+		//
+		// Object[] args = { ruleScript, context };
+		// baseScript.invokeMethod("run", args);
+		// RuleResult result = new RuleResult();
+		return null;
 	}
 }

@@ -1,1 +1,3 @@
-value("tesr")
+if(test=="test"){
+	update("GIGHIG");
+}
